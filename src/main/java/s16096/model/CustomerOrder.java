@@ -1,35 +1,26 @@
 package s16096.model;
 
+import java.util.ArrayList;
+
 public class CustomerOrder {
-    private long id;
-    private String orderName;
-    private boolean isDone;
-    private Pizza pizza;
+    private long orderId;
+    private boolean isDone = false;
+    private ArrayList<String> orderedPizzas;
 
-    public CustomerOrder(){
+    public CustomerOrder(){}
 
-    }
-    public CustomerOrder(long id, String orderName) {
-        this.id = id;
-        this.orderName = orderName;
+    public CustomerOrder(long id, ArrayList<String> orderedPizzas) {
+        this.orderId = id;
         this.isDone = false;
-        this.pizza = new Pizza();
+        this.orderedPizzas = orderedPizzas;
     }
 
-    public long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public boolean isDone() {
@@ -40,11 +31,11 @@ public class CustomerOrder {
         isDone = done;
     }
 
-    public Pizza getPizza() {
-        return pizza;
+    public ArrayList<String> getOrderedPizzas() {
+        return orderedPizzas;
     }
 
-    public void setPizza(Pizza pizza) {
-        this.pizza = pizza;
+    public void setOrderedPizzas(ArrayList<String> orderedPizzas) {
+        this.orderedPizzas = orderedPizzas;
     }
 }
