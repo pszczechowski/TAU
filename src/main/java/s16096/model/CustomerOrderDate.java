@@ -17,7 +17,9 @@ public class CustomerOrderDate  {
         this.modernizeTime = modernizeTime;
         this.lastReadingTime = lastReadingTime;
     }
-
+    public CustomerOrderDate create(CustomerOrder order) {
+        return new CustomerOrderDate(order.getExecutionTime(),order.getModernizeTime(),order.getLastReadingTime());
+    }
 
     public LocalDateTime getExecutionTime() {
         return executionTime;
