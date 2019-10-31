@@ -1,9 +1,11 @@
 package s16096.service;
 
 import s16096.model.CustomerOrder;
+import s16096.model.CustomerOrderDate;
 import s16096.repository.WorkToDoneRepo;
 import s16096.model.Customer;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class CrudService {
@@ -21,8 +23,13 @@ public class CrudService {
 
     public CustomerOrder getOrderById(Long id) {
         if (WorkToDoneRepo.getInstance().isInRepoById(id)) {
+
             Optional<CustomerOrder> optionalCustomerOrder = WorkToDoneRepo.getInstance().getOrderById(id);
             if (optionalCustomerOrder.isPresent()) {
+                CustomerOrder customerOrder = optionalCustomerOrder.get();
+                if (customerOrder.isRecordTimes()){
+                    customerOrder.setLastReadingTime(LocalDateTime.now());
+                }
                 return optionalCustomerOrder.get();
             }
         }
@@ -41,11 +48,19 @@ public class CrudService {
         return new ArrayList<CustomerOrder>(WorkToDoneRepo.getInstance().collectionAccess());
     }
 
-    public CustomerOrder updateCustomer(Long id, Customer customer){
+    public CustomerOrder updateCustomer(Long id, CustomerOrder customer){
         if (WorkToDoneRepo.getInstance().isInRepoById(id)){
             CustomerOrder customerToUpdate = getOrderById(id);
 
-            customer.setCustomerOrder(customer.getCustomerOrder());
+            //customer.setCustomerOrder(customer.getCustomerOrder());
+            customerToUpdate.setOrderedPizzas(customer.getOrderedPizzas());
+            customerToUpdate.setDone(customer.isDone());
+            customerToUpdate.setRecordTimes(customer.isRecordTimes());
+
+            if (customer.isRecordTimes()) {
+                customerToUpdate.setModernizeTime(LocalDateTime.now());
+                customerToUpdate.setLastReadingTime(customer.getLastReadingTime());
+            }
 
 
             WorkToDoneRepo.getInstance().collectionAccess().remove(getOrderById(id));
@@ -56,6 +71,10 @@ public class CrudService {
         }
 
         throw new NoSuchElementException("Element doesn't exist");
+    }
+
+    public CustomerOrderDate getTimeById(long id) {
+        return new CustomerOrderDate().create((getOrderById(id)));
     }
 
 }

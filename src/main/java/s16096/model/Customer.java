@@ -59,5 +59,4 @@ public class Customer {
     public void setCustomerOrder(CustomerOrder customerOrder) {
         this.customerOrder = customerOrder;
     }
-
 }

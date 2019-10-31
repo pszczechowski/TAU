@@ -10,9 +10,12 @@ public class CustomerOrder {
     private LocalDateTime executionTime;
     private LocalDateTime modernizeTime;
     private LocalDateTime lastReadingTime;
+    private Customer customer;
     private boolean recordTimes;
 
-    public CustomerOrder(){}
+    public CustomerOrder(){
+
+    }
 
     public CustomerOrder(long id, ArrayList<String> orderedPizzas) {
         this.orderId = id;
@@ -63,3 +66,4 @@ public class CustomerOrder {
 
     public void setRecordTimes(boolean recordTimes) { this.recordTimes = recordTimes; }
 }
+

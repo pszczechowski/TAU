@@ -4,17 +4,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 import s16096.model.Customer;
 import s16096.model.CustomerOrder;
 import s16096.repository.WorkToDoneRepo;
 import s16096.service.CrudService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+@RunWith(MockitoJUnitRunner.class)
 
 public class CrudServiceTest {
-
     private WorkToDoneRepo repository = WorkToDoneRepo.getInstance();
     private CrudService crudService = new CrudService();
 
@@ -24,9 +28,13 @@ public class CrudServiceTest {
     private ArrayList<String> order4 = new ArrayList<String>();
     private ArrayList<String> order5 = new ArrayList<String>();
 
+    @InjectMocks
+    private CustomerOrder customerOrder;
+
     @BeforeClass
     public static void setup() {
     }
+
 
     @Before
     public void initList() {
@@ -92,5 +100,19 @@ public class CrudServiceTest {
         Assert.assertEquals(orderToUpdate.getOrderedPizzas(), orderToUpdate.getOrderedPizzas());
         Assert.assertEquals(orderToUpdate.isDone(), orderToUpdate.isDone());
     }
+    @Test
+    public void readDataOnGetObject_correct() {
+        Assert.assertEquals(crudService.getOrderById((long) 1).getLastReadingTime(), LocalDateTime.now());
+    }
+    @Test
+    public void getTimesByCustomerOrderId_correct() {
+        crudService.getOrderById((long) 1);
+    }
+ /*   @Test
+    public void addDataOverAddCollection_correct() {
+        crudService.createCustomerOrder(CustomerOrder.create(1, "costam"))
+    }*/
+
 
 }
+
