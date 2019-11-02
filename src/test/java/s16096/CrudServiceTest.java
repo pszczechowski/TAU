@@ -41,8 +41,8 @@ public class CrudServiceTest {
     private ArrayList<String> order4 = new ArrayList<String>();
     private ArrayList<String> order5 = new ArrayList<String>();
 
-/*    @InjectMocks
-    private CustomerOrder customerOrder;*/
+  /*  @InjectMocks
+    private CustomerOrderDate customerOrderDate;*/
 
     @BeforeClass
     public static void setup() {
@@ -119,7 +119,7 @@ public class CrudServiceTest {
         when(crudServiceMock.getOrderById((long)1)).thenReturn(orderMock);
         when(crudServiceMock.getOrderById((long)1).getLastReadingTime()).thenReturn(time);
 
-        Assert.assertEquals(crudService.getOrderById((long) 1).getLastReadingTime(), time);
+        Assert.assertEquals(crudServiceMock.getOrderById((long) 1).getLastReadingTime(), time);
     }
     @Test
     public void getTimesByCustomerOrderId_correct() { crudService.getOrderById((long) 1);
@@ -133,7 +133,7 @@ public class CrudServiceTest {
 
         when(crudServiceMock.getOrderById((long)30)).thenReturn(orderMock);
         when(crudServiceMock.getOrderById((long)30).getLastReadingTime()).thenReturn(time);
-       // Assert.assertEquals(crudService.getOrderById((long)30).getLastReadingTime(), time);
+        Assert.assertEquals(crudServiceMock.getOrderById((long)30).getLastReadingTime(), time);
     }
     @Test
     public void updateDateOverUpdateObject_correct() {
@@ -149,10 +149,10 @@ public class CrudServiceTest {
         CustomerOrder orderWithFalse = repository.collectionAccess().get(1);
         orderWithFalse.setRecordTimes(false);
         crudService.updateCustomer(orderWithFalse.getOrderId(), orderWithFalse);
-        Mockito.timeout(400);
+        Mockito.timeout(300);
 
         List<CustomerOrder> allCustomerOrder = crudService.getAllCustomerOrder();
-         //Assert.assertTrue(allCustomerOrder.stream().anyMatch(x -> x.getLastReadingTime() != orderWithFalse.getLastReadingTime()));
+        // Assert.assertTrue(allCustomerOrder.stream().anyMatch(x -> x.getLastReadingTime() != orderWithFalse.getLastReadingTime()));
          Assert.assertEquals(3 , allCustomerOrder.stream().filter(x -> x.getLastReadingTime() == orderWithFalse.getLastReadingTime()).count());
     }
 
