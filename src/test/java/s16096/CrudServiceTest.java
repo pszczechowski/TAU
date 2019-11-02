@@ -122,7 +122,9 @@ public class CrudServiceTest {
         Assert.assertEquals(crudServiceMock.getOrderById((long) 1).getLastReadingTime(), time);
     }
     @Test
-    public void getTimesByCustomerOrderId_correct() { crudService.getOrderById((long) 1);
+    public void getTimesByCustomerOrderId_correct() {
+        //crudService.getOrderById((long) 1);
+        Assert.assertNotNull((crudService.getOrderById((long)1)));
 
     }
 
@@ -152,7 +154,7 @@ public class CrudServiceTest {
         Mockito.timeout(300);
 
         List<CustomerOrder> allCustomerOrder = crudService.getAllCustomerOrder();
-        // Assert.assertTrue(allCustomerOrder.stream().anyMatch(x -> x.getLastReadingTime() != orderWithFalse.getLastReadingTime()));
+         //Assert.assertTrue(allCustomerOrder.stream().anyMatch(x -> x.getLastReadingTime() != orderWithFalse.getLastReadingTime()));
          Assert.assertEquals(3 , allCustomerOrder.stream().filter(x -> x.getLastReadingTime() == orderWithFalse.getLastReadingTime()).count());
     }
 
