@@ -65,5 +65,19 @@ public class CustomerOrder {
     public boolean isRecordTimes() { return recordTimes; }
 
     public void setRecordTimes(boolean recordTimes) { this.recordTimes = recordTimes; }
-}
 
+@Override
+public String toString() {
+    return "Customer Order{" +
+            "id=" + orderId +
+            ", isDone" + isDone +
+            ", orderedPizzas" + orderedPizzas +
+            ", executionTome" + executionTime +
+            ", modernizeTime" + modernizeTime +
+            ", lastReadingTime" + lastReadingTime +
+            ", recordTimes" + recordTimes +
+            '}';
+
+    }
+
+}
