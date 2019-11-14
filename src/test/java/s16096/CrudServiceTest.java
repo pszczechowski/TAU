@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -154,7 +153,6 @@ public class CrudServiceTest {
         Mockito.timeout(300);
 
         List<CustomerOrder> allCustomerOrder = crudService.getAllCustomerOrder();
-         //Assert.assertTrue(allCustomerOrder.stream().anyMatch(x -> x.getLastReadingTime() != orderWithFalse.getLastReadingTime()));
          Assert.assertEquals(3 , allCustomerOrder.stream().filter(x -> x.getLastReadingTime() == orderWithFalse.getLastReadingTime()).count());
     }
 

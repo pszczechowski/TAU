@@ -7,6 +7,7 @@ import s16096.model.Customer;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CrudService {
 
@@ -27,7 +28,7 @@ public class CrudService {
             Optional<CustomerOrder> optionalCustomerOrder = WorkToDoneRepo.getInstance().getOrderById(id);
             if (optionalCustomerOrder.isPresent()) {
                 CustomerOrder customerOrder = optionalCustomerOrder.get();
-                if (customerOrder.isRecordTimes()){
+                if (customerOrder.isRecordTimes()) {
                     customerOrder.setLastReadingTime(LocalDateTime.now());
                 }
                 return optionalCustomerOrder.get();
@@ -36,7 +37,7 @@ public class CrudService {
         throw new NoSuchElementException("Element doesn't exist");
     }
 
-    public boolean deleteCustomerOrder (Long id) {
+    public boolean deleteCustomerOrder(Long id) {
         if (WorkToDoneRepo.getInstance().isInRepoById(id)) {
             WorkToDoneRepo.getInstance().collectionAccess().remove(getOrderById(id));
             return true;
@@ -45,14 +46,13 @@ public class CrudService {
     }
 
     public List<CustomerOrder> getAllCustomerOrder() {
-        return new ArrayList<CustomerOrder>(WorkToDoneRepo.getInstance().collectionAccess());
+        return new ArrayList<>(WorkToDoneRepo.getInstance().collectionAccess());
     }
 
-    public CustomerOrder updateCustomer(Long id, CustomerOrder customer){
-        if (WorkToDoneRepo.getInstance().isInRepoById(id)){
+    public CustomerOrder updateCustomer(Long id, CustomerOrder customer) {
+        if (WorkToDoneRepo.getInstance().isInRepoById(id)) {
             CustomerOrder customerToUpdate = getOrderById(id);
 
-            //customer.setCustomerOrder(customer.getCustomerOrder());
             customerToUpdate.setOrderedPizzas(customer.getOrderedPizzas());
             customerToUpdate.setDone(customer.isDone());
             customerToUpdate.setRecordTimes(customer.isRecordTimes());
@@ -61,7 +61,6 @@ public class CrudService {
                 customerToUpdate.setModernizeTime(LocalDateTime.now());
                 customerToUpdate.setLastReadingTime(customer.getLastReadingTime());
             }
-
 
             WorkToDoneRepo.getInstance().collectionAccess().remove(getOrderById(id));
             WorkToDoneRepo.getInstance().collectionAccess().add(customerToUpdate);
@@ -77,6 +76,29 @@ public class CrudService {
         return new CustomerOrderDate().create((getOrderById(id)));
     }
 
+    public List<CustomerOrder> getCustomerOrderByRegex(String regex) {
+        if (regex == null) {
+            throw new IllegalArgumentException("regex can't by null");
+        }
+        return WorkToDoneRepo.getInstance().collectionAccess().stream()
+                .filter(x -> x.getOrderedPizzas().contains(regex))
+                .collect(Collectors.toList());
+
+    }
+
+    public boolean deleteCustomerOrderByRegex(String regex) {
+        if(regex == null){
+            throw new IllegalArgumentException("regex can't by null");
+        }
+
+        List<CustomerOrder> ordersToRemove = getCustomerOrderByRegex(regex);
+        if(ordersToRemove.size() == 0) {
+            return false;
+        }
+
+        ordersToRemove.forEach(x -> deleteCustomerOrder(x.getOrderId()));
+        return true;
+    }
 }
 
 

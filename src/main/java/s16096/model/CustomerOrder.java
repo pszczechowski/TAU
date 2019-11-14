@@ -68,10 +68,10 @@ public class CustomerOrder {
 
 @Override
 public String toString() {
-    return "Customer Order{" +
+    return "CustomerOrder{" +
             "id=" + orderId +
+            ", orderedPizzas" + orderedPizzas + '\'' +
             ", isDone" + isDone +
-            ", orderedPizzas" + orderedPizzas +
             ", executionTome" + executionTime +
             ", modernizeTime" + modernizeTime +
             ", lastReadingTime" + lastReadingTime +
