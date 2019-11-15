@@ -100,7 +100,7 @@ public class CrudServiceTest {
     @Test
     public void getAllOrderedPizzas_correct() {
         List<CustomerOrder> orders = crudService.getAllCustomerOrder();
-        Assert.assertEquals(orders.size(), 9);
+        Assert.assertEquals(orders.size(), 12);
     }
     @Test
     public void updateCustomerOrder_correct() {
@@ -153,7 +153,7 @@ public class CrudServiceTest {
         Mockito.timeout(300);
 
         List<CustomerOrder> allCustomerOrder = crudService.getAllCustomerOrder();
-         Assert.assertEquals(3 , allCustomerOrder.stream().filter(x -> x.getLastReadingTime() == orderWithFalse.getLastReadingTime()).count());
+         Assert.assertEquals(6 , allCustomerOrder.stream().filter(x -> x.getLastReadingTime() == orderWithFalse.getLastReadingTime()).count());
     }
 
 
