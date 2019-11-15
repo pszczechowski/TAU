@@ -7,8 +7,8 @@ Then user can show <listOfOrder>
 
 Scenario: Get order by regex
 Given init order list
-When user wanna order with <listOrder> hawajska
-Then user get all tasks with <listOrder> hawajska
+When user wanna order with <listOrder> Hawai,Americana
+Then user get all tasks with <listOrder> Hawai,Americana
 
 
 

@@ -44,21 +44,21 @@ public class AddCucumberTest {
         ArrayList<String> order1 = new ArrayList<String>();
         ArrayList<String> order2 = new ArrayList<String>();
         ArrayList<String> order3 = new ArrayList<String>();
-        order1.add("hawajska");
-        order2.add("peperoni");
-        order3.add("italiana");
+        order1.add("Hawai");
+        order2.add("Americana");
+        order3.add("Wiejska");
 
         repository.collectionAccess().add(new CustomerOrder(1,order1));
         repository.collectionAccess().add(new CustomerOrder(2, order2));
         repository.collectionAccess().add(new CustomerOrder(3, order3));
     }
 
-    @When("^user wanna order with (.*) hawajska$")
+    @When("^user wanna order with (.*) Hawai,Americana$")
     public void getOrderByRegex(String regex) {
         customerOrders = crudService.getCustomerOrderByRegex(regex);
     }
 
-    @Then("^user get all tasks with (.*) hawajska$")
+    @Then("^user get all tasks with (.*) Hawai,Americana$")
     public void orderByRegexPassed(String regex) {
         MatcherAssert.assertThat(customerOrders.size(),equalTo(0));
     }
