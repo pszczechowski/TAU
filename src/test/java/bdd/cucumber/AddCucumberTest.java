@@ -1,4 +1,5 @@
 package bdd.cucumber;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -7,10 +8,11 @@ import s16096.model.CustomerOrder;
 import s16096.repository.WorkToDoneRepo;
 import s16096.service.CrudService;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matcher.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.hamcrest.CoreMatchers.equalTo;
 
 
 public class AddCucumberTest {
@@ -31,9 +33,35 @@ public class AddCucumberTest {
     public void setOrderedPizza(ArrayList<String> orderedPizzas) {
         customerOrder.setOrderedPizzas(orderedPizzas);
     }
+
     @Then("^user can show (.*)$")
         public void orderPizzasIsCorrect(ArrayList<String> orderedPizzas){
         MatcherAssert.assertThat(customerOrder.getOrderedPizzas(), equalTo(orderedPizzas));
         }
+
+    @Given("^init order list$")
+    public void initOrderList() {
+        ArrayList<String> order1 = new ArrayList<String>();
+        ArrayList<String> order2 = new ArrayList<String>();
+        ArrayList<String> order3 = new ArrayList<String>();
+        order1.add("hawajska");
+        order2.add("peperoni");
+        order3.add("italiana");
+
+        repository.collectionAccess().add(new CustomerOrder(1,order1));
+        repository.collectionAccess().add(new CustomerOrder(2, order2));
+        repository.collectionAccess().add(new CustomerOrder(3, order3));
+    }
+
+    @When("^user wanna order with (.*) hawajska$")
+    public void getOrderByRegex(String regex) {
+        customerOrders = crudService.getCustomerOrderByRegex(regex);
+    }
+
+    @Then("^user get all tasks with (.*) hawajska$")
+    public void orderByRegexPassed(String regex) {
+        MatcherAssert.assertThat(customerOrders.size(),equalTo(0));
+    }
+
 
 }
