@@ -42,15 +42,9 @@ public class AddCucumberTest {
     @Given("^init order list$")
     public void initOrderList() {
         ArrayList<String> order1 = new ArrayList<String>();
-        //ArrayList<String> order2 = new ArrayList<String>();
-        //ArrayList<String> order3 = new ArrayList<String>();
         order1.add("Hawai");
-       // order2.add("Americana");
-        //order3.add("Wiejska");
 
         repository.collectionAccess().add(new CustomerOrder(1,order1));
-       // repository.collectionAccess().add(new CustomerOrder(2, order2));
-        //repository.collectionAccess().add(new CustomerOrder(3, order3));
     }
 
     @When("^user wanna order with (.*) \\[Hawai\\]$")
