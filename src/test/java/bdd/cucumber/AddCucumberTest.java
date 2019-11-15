@@ -53,12 +53,12 @@ public class AddCucumberTest {
         repository.collectionAccess().add(new CustomerOrder(3, order3));
     }
 
-    @When("^user wanna order with (.*) \\[Hawai\\]$")
+    @When("^user wanna order with (.*) \\[Hawai\\] \\[Americana\\]$")
     public void getOrderByRegex(String regex) {
         customerOrders = crudService.getCustomerOrderByRegex(regex);
     }
 
-    @Then("^user get all order with (.*) \\[Hawai\\]$")
+    @Then("^user get all order with (.*) \\[Hawai\\] \\[Americana\\]$")
     public void orderByRegexPassed(String regex) {
         MatcherAssert.assertThat(customerOrders.size(),equalTo(0));
     }
