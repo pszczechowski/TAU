@@ -3,11 +3,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>pl.edu.pjatk.tau</groupId>
   <artifactId>tau</artifactId>
   <version>1.0-SNAPSHOT</version>
-
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.1.RELEASE</version>
+  </parent>
   <name>Pizzeria</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
@@ -16,6 +19,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <spring.version>[4.3.18,)</spring.version>
+    <com.fasterxml.jackson.version>2.9.4</com.fasterxml.jackson.version>
   </properties>
 
   <dependencies>
@@ -47,6 +52,23 @@
       <groupId>info.cukes</groupId>
       <artifactId>cucumber-testng</artifactId>
       <version>1.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring dependencies -->
+
+
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
   </dependencies>
 

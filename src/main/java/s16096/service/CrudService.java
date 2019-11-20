@@ -1,14 +1,18 @@
 package s16096.service;
 
+import org.springframework.stereotype.Service;
 import s16096.model.CustomerOrder;
 import s16096.model.CustomerOrderDate;
 import s16096.repository.WorkToDoneRepo;
-import s16096.model.Customer;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class CrudService {
 
     public CrudService() {
@@ -99,6 +103,7 @@ public class CrudService {
         ordersToRemove.forEach(x -> deleteCustomerOrder(x.getOrderId()));
         return true;
     }
+
 }
 
 
